@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ftodo_local/utility/dialogbox.dart';
 import 'package:ftodo_local/utility/list_tile.dart';
+import 'package:hive/hive.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,6 +11,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  // reference the box
+  final _box = Hive.openBox('todoBox');
   List todoList = [
     ['go to market', false],
     ['buy groceries', false],
