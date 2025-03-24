@@ -52,6 +52,14 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // delete a task at a specific index
+  void deleteTask(int index) {
+    print("Deleting task at index $index"); // Add this line
+    setState(() {
+      todoList.removeAt(index);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,9 +77,9 @@ class _HomePageState extends State<HomePage> {
                 todoList[index][0], //returning the task name the first element of the list
             taskCompleted:
                 todoList[index][1], //returning the task completed status the second element of the list
-            onCheckboxChanged:
-                (value) => checkTheBoxMethod(
-                  value,
+            onCheckboxChanged: (value) => checkTheBoxMethod(value, index),
+            dltmethod:
+                () => deleteTask(
                   index,
                 ), // value is the bool value of the checkbox and index is the index of the list
           );
