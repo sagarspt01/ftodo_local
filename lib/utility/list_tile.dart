@@ -33,7 +33,11 @@ class TodoTile extends StatelessWidget {
           Text(
             taskName,
             style: TextStyle(
-              decoration: taskCompleted ? TextDecoration.lineThrough : null,
+              decoration:
+                  taskCompleted
+                      ? TextDecoration.lineThrough
+                      : null, //if task is completed then line through else null
+              fontSize: 20,
             ),
           ),
         ],
