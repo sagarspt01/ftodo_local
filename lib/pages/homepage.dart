@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ftodo_local/utility/dialogbox.dart';
 import 'package:ftodo_local/utility/list_tile.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,11 +15,41 @@ class _HomePageState extends State<HomePage> {
     ['buy groceries', false],
     ['pay bills', false],
   ];
+  final TextEditingController _taskController = TextEditingController();
   void checkTheBoxMethod(bool? value, int index) {
     if (value == null) return;
     setState(() {
       todoList[index][1] = value;
     });
+  }
+
+  // save the task
+  void saveTask() {
+    if (_taskController.text.isNotEmpty) {
+      setState(() {
+        todoList.add([_taskController.text, false]); // Add new task
+      });
+      _taskController.clear(); // Clear the input field
+    }
+    Navigator.of(context).pop(); // Close dialog after adding
+  }
+
+  // function to add new task
+  void addNewTask() {
+    // no need to pass any parameter
+    showDialog(
+      context: context,
+      builder: (context) {
+        return DialogBox(
+          controller: _taskController,
+          onSave: saveTask,
+          onCancel: () {
+            _taskController.clear(); //clear the input field
+            Navigator.of(context).pop();
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -45,6 +76,12 @@ class _HomePageState extends State<HomePage> {
                 ), // value is the bool value of the checkbox and index is the index of the list
           );
         },
+      ),
+      // floating action button to add new task
+      floatingActionButton: FloatingActionButton(
+        onPressed: addNewTask,
+        child: const Icon(Icons.add),
+        backgroundColor: Colors.amber[300],
       ),
     );
   }
